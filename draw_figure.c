@@ -1,24 +1,31 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_next_line.h                                    :+:      :+:    :+:   */
+/*   draw_figure.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2018/11/10 16:34:53 by dshereme          #+#    #+#             */
-/*   Updated: 2019/02/06 22:55:42 by dshereme         ###   ########.fr       */
+/*   Created: 2019/02/28 12:49:57 by dshereme          #+#    #+#             */
+/*   Updated: 2019/02/28 18:23:06 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef GET_NEXT_LINE_H
+#include "fdf.h"
 
-# define GET_NEXT_LINE_H
+void	draw_figure(void *mlx_ptr, void *win_ptr, t_figure *figura)
+{
+	int		y;
+	int		x;
+	int		delta_X;
+	int		delta_Y;
 
-# define BUFF_SIZE 32
-
-# include <fcntl.h>
-# include "../libft/libft.h"
-
-int		get_next_line(const int fd, char **line);
-
-#endif
+	delta_X = figura->start_position[1];
+	delta_Y = figura->start_position[0];
+	y = -1;
+	while (++y < figura->start_position[0])
+	{
+		x = -1;
+		while (++x < figura->start_position[1])
+			draw_line(mlx_ptr, win_ptr, delta_X, delta_Y, delta_X += 10, delta_Y += 10);
+	}
+}
