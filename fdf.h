@@ -5,10 +5,19 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2019/02/25 18:53:27 by dshereme          #+#    #+#             */
-/*   Updated: 2019/02/28 18:25:23 by dshereme         ###   ########.fr       */
+/*   Created: 2019/03/05 11:50:50 by dshereme          #+#    #+#             */
+/*   Updated: 2019/03/07 20:30:05 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
+# ifndef FDF_H
+
+# define FDF_H
+
+# define WIN_HEIGHT 1080
+# define WIN_WIDTH	1920
+# define GET_NUM	0
+# define INCREASE	1
 
 #include <mlx.h>
 # include <sys/types.h>
@@ -17,41 +26,49 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include "libft/libft.h"
-#include <unistd.h>
-#include "./get_next_line/get_next_line.h"
+# include <unistd.h>
+# include "./get_next_line/get_next_line.h"
 
-typedef	struct			s_point
+typedef	struct s_graphics
 {
-	int					x;
-	int					y;
-	int					z;
-}						t_point;
+	void		*win_ptr;
+	void		*mlx_ptr;
+	int			color;
+}				t_graph;
 
-typedef struct			s_vertex
+typedef	struct	s_point
 {
-	t_point				crnt_pos;
-	int					color;
-	struct	s_point		*next;
-}						t_vertex;
+	double		x;
+	double		y;
+	double		z;
+}				t_point;
 
- typedef struct			s_figure
- {
-	 int				**points;
-	 int				start_position[2];
-	 int				color;
-	 int				x_len;
-	 int				y_len;
-	 int				step_len;
- }						t_figure;
+typedef	struct	s_fdf
+{
+	char		*title;			//
+	char		*file_name;		//INIT: fdf_init
+	int			**array_y_z;	//INIT: get_array
+	t_graph		*graph;		//INIT: fdf_init
+	t_point		count;	//кол-во линий и символов INIT: norminate
+	t_point		start_pos;
+	t_point		scale;	//WIN_.. * count of x/y
+	t_point		delta;	//прирост за шаг	//INIT: fdf_coord_init
+}				t_fdf;
 
-void		draw_line(void *mlx_ptr, void *win_ptr, int x1, int y1, int x2, int y2);
-t_vertex	*new_vertex(void);
-t_vertex	*get_vertices(char  *file_name);
+int     norminate(t_fdf *fdf);
+int		get_count_x (char *line);
+int		get_count_y(int y);
+int		get_array(t_fdf *fdf);
+int		*create_array(char **splitted, int size);
 
-int			y_count(char *file_name);
-int			x_count(char *file_name);
-t_figure	*new_figure(char *file_name);
-void		show_coordinates(t_figure *figura);
-int			**create_array(char *file_name);
-void		fill_array(int **array, char *filename);
-void		draw_figure(void *mlx_ptr, void *win_ptr, t_figure *figura);
+//initialization.c
+void	fdf_init(t_fdf **fdf, char *file_name);
+void	fdf_coord_init(t_fdf *fdf);
+
+//dda.c
+void	draw_line(t_fdf *fdf, t_point p_one, t_point p_two);
+int		fdf_exit(int key, void *param);
+void	sicle_draw(t_fdf *fdf);
+void	draw_figure(t_fdf *fdf);
+
+#endif
