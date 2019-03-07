@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:19:34 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 20:27:24 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/07 21:36:44 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,11 +30,12 @@ void	fdf_coord_init(t_fdf *fdf)
 {
 	fdf->start_pos.x = WIN_WIDTH / 4;
 	fdf->start_pos.y = WIN_HEIGHT / 4;
+	fdf->save_start_pos = fdf->start_pos;
 	fdf->delta.x = (WIN_WIDTH / fdf->count.x) / 2;
 	fdf->delta.y = (WIN_HEIGHT / fdf->count.y) / 2;
-	fdf->scale.x = fdf->delta.x * 1.5;
-	fdf->scale.y = fdf->delta.y * 1.5;
-	printf("start_x: %f\tstart_y: %f\n", fdf->start_pos.x, fdf->start_pos.y);
+	fdf->start_delta = fdf->delta;
+	fdf->scale.x = WIN_WIDTH / 5;
+	fdf->scale.y = WIN_HEIGHT / 5;
 }
 
 //	написал бразенхельм, рисует сетку

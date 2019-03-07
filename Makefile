@@ -6,7 +6,7 @@
 #    By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 18:49:39 by dshereme          #+#    #+#              #
-#    Updated: 2019/03/07 17:58:58 by dshereme         ###   ########.fr        #
+#    Updated: 2019/03/07 21:26:22 by dshereme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,6 +27,7 @@ SRC		:=	main.c \
 			norminate.c \
 			initialization.c \
 			dda.c \
+			hotkeys.c \
 			$(GNL)/get_next_line.c
 
 OBJ		:=	$(SRC:%.c=%.o)

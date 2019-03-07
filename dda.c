@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 12:42:32 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 20:31:13 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/07 21:42:54 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,10 +49,6 @@ void	draw_horiz_lines(t_fdf *fdf)
 	int			j;
 
 	arr = fdf->array_y_z;
-	// p_one.x = fdf->start_pos.x + (fdf->delta.x);
-	// p_one.y = fdf->start_pos.y;
-	// p_two.x = fdf->start_pos.x + (fdf->delta.x * 2);
-	// p_two.y = fdf->start_pos.y;
 	i = -1;
 	while (++i < fdf->count.y)
 	{
@@ -66,7 +62,6 @@ void	draw_horiz_lines(t_fdf *fdf)
 			draw_line(fdf, p_one, p_two);
 		}
 	}
-	printf("P_ONE: %f,  %f\tP_TWO: %f,  %f\n", p_one.x, p_one.y, p_two.x, p_two.y);
 }
 
 void	draw_vert_lineas(t_fdf *fdf)
@@ -78,7 +73,6 @@ void	draw_vert_lineas(t_fdf *fdf)
 	int			j;
 
 	arr = fdf->array_y_z;
-	
 	i = -1;
 	while (++i < fdf->count.x)
 	{
@@ -100,16 +94,8 @@ void	sicle_draw(t_fdf *fdf)
 	fdf->graph->win_ptr = mlx_new_window(fdf->graph->mlx_ptr,
 	WIN_WIDTH, WIN_HEIGHT, fdf->title);
 	draw_figure(fdf);
-	mlx_hook(fdf->graph->win_ptr, 2, 0, fdf_exit, fdf_exit);
+	mlx_hook(fdf->graph->win_ptr, 2, 0, hotkeys, fdf);
 	mlx_loop(fdf->graph->mlx_ptr);
-}
-
-int		fdf_exit(int key, void *param)
-{
-	(void)param;
-	if (key == 53)
-		exit(0);
-	return (0);
 }
 
 void	draw_figure(t_fdf *fdf)

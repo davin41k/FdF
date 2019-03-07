@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 11:50:50 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 20:30:05 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/07 22:02:29 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,19 @@ typedef	struct	s_fdf
 	t_graph		*graph;		//INIT: fdf_init
 	t_point		count;	//кол-во линий и символов INIT: norminate
 	t_point		start_pos;
+	t_point		save_start_pos;
 	t_point		scale;	//WIN_.. * count of x/y
 	t_point		delta;	//прирост за шаг	//INIT: fdf_coord_init
+	t_point		start_delta;
 }				t_fdf;
 
+//norminate.c
 int     norminate(t_fdf *fdf);
 int		get_count_x (char *line);
 int		get_count_y(int y);
+void	show_array(t_fdf *fdf);
+
+//read_figure.c
 int		get_array(t_fdf *fdf);
 int		*create_array(char **splitted, int size);
 
@@ -70,5 +76,11 @@ void	draw_line(t_fdf *fdf, t_point p_one, t_point p_two);
 int		fdf_exit(int key, void *param);
 void	sicle_draw(t_fdf *fdf);
 void	draw_figure(t_fdf *fdf);
+
+//hotkeys.c
+int		hotkeys(int key, t_fdf *fdf);
+void	figure_move(int key, t_fdf *fdf);
+void	figure_scale(int key, t_fdf *fdf);
+void	figure_restart(int key, t_fdf *fdf);
 
 #endif

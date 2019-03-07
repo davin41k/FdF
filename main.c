@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:22:20 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 20:05:17 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/07 21:31:03 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,22 +22,15 @@ int     main(int ac, char **av)
 
 	// i = j = -1;
 	fdf_init(&fdf, av[1]);
-	get_array(fdf);
+	if (!get_array(fdf))
+	{
+		ft_putendl("error: file with coordinates is not in norme");
+		return (0);
+	}
+	//show_array(fdf);
 	fdf_coord_init(fdf);
 	ac = 0;
-	//printf("%d\n", norminate(fdf));
-	// printf("X:\t%d\n", fdf->count.x);
-	// printf("Y:\t%d\n", fdf->count.y);
-//	arr = fdf->array_y_z;
 	sicle_draw(fdf);
-	// while (++i < fdf->count.y)
-	// {
-	// 	j = -1;
-	// 	while (++j < fdf->count.x)
-	// 	{
-	// 		printf("X:\t%d\tY:\t%d\tZ:\t%d\n", j, i, arr[i][j]);
-	// 	}
-	// }
 	//system("leaks fdf");
 	return (0);
 }
