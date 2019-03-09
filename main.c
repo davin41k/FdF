@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:22:20 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 21:31:03 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:41:30 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,10 @@ int     main(int ac, char **av)
 	}
 	//show_array(fdf);
 	fdf_coord_init(fdf);
+	get_coord(fdf);
+	show_coord(fdf);
 	ac = 0;
 	sicle_draw(fdf);
-	//system("leaks fdf");
+	system("leaks fdf");
 	return (0);
 }

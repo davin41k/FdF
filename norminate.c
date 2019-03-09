@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:34:15 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 21:00:57 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/09 18:27:58 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,21 @@ void	show_array(t_fdf *fdf)
 			printf("%3d", arr[i][j]);	
 		printf("\n");
 	}
+}
+
+void	show_coord(t_fdf *fdf)
+{
+	int		**arr;
+	int		vert_count;
+
+	vert_count = -1;
+	arr = fdf->array_y_z;
+	printf("X:\t%d\n\n", fdf->coord->x[0]);
+	while (++vert_count < fdf->vert_count)
+		{
+			printf("[%5d%5d%5d%10d]", fdf->coord->x[vert_count], fdf->coord->y[vert_count],
+			fdf->coord->z[vert_count], fdf->coord->color[vert_count]);
+			//if (vert_count && (vert_count % (int)fdf->count.x -1) == 0)
+				printf("\n");
+		}
 }

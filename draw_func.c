@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   dda.c                                              :+:      :+:    :+:   */
+/*   draw_func.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 12:42:32 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 21:42:54 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/09 18:29:08 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,11 +32,11 @@ void	draw_line(t_fdf *fdf, t_point p_one, t_point p_two)
 	delta.y = abs_value.y > abs_value.x ? 1 : abs_value.y / abs_value.x; 
 	max_value = abs_value.x > abs_value.y ? abs_value.x : abs_value.y;
 	mlx_pixel_put(fdf->graph->mlx_ptr, fdf->graph->win_ptr,
-	p_one.x, p_one.y, fdf->graph->color);	// рисуем первый пиксел, потов все остальные со смещением
+	p_one.x, p_one.y, 0xFFFFFF);	// рисуем первый пиксел, потов все остальные со смещением
 	while (++idx <= max_value)
 	{
 		mlx_pixel_put(fdf->graph->mlx_ptr, fdf->graph->win_ptr,
-		p_one.x += delta.x, p_one.y += delta.y, fdf->graph->color);
+		p_one.x += delta.x, p_one.y += delta.y, 0xFFFFFF); //fdf->graph->color
 	}
 }
 
@@ -53,12 +53,14 @@ void	draw_horiz_lines(t_fdf *fdf)
 	while (++i < fdf->count.y)
 	{
 		j = 0;
-		while (++j < fdf->count.x)
+		while (++j < fdf->count.x) // x
 		{
 			p_one.x = fdf->start_pos.x + (fdf->delta.x * (j - 1));
 			p_one.y = fdf->start_pos.y + (fdf->delta.y * (i));
+			p_one.z = 10 * arr[i][j - 1] / 10;
 			p_two.x = fdf->start_pos.x + (fdf->delta.x * (j));
 			p_two.y = fdf->start_pos.y + (fdf->delta.y * (i));
+			p_two.z = 10 * arr[i][j] / 10;			
 			draw_line(fdf, p_one, p_two);
 		}
 	}
@@ -77,12 +79,14 @@ void	draw_vert_lineas(t_fdf *fdf)
 	while (++i < fdf->count.x)
 	{
 		j = 0;
-		while (++j < fdf->count.y)
+		while (++j < fdf->count.y) // y
 		{
 			p_one.x = fdf->start_pos.x + (fdf->delta.x * (i));
 			p_one.y = fdf->start_pos.y + (fdf->delta.y * (j - 1));
+			//p_one.z = 50 * arr[i][j - 1] / 10;
 			p_two.x = fdf->start_pos.x + (fdf->delta.x * (i));
 			p_two.y = fdf->start_pos.y + (fdf->delta.y * (j));
+			//p_two.z = 50 * arr[i][j] / 10;
 			draw_line(fdf, p_one, p_two);
 		}
 	}

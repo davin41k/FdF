@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:46:02 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/07 18:41:53 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/09 17:23:08 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,32 @@
 //  чтение и запись массива в структуру. Если по нормпе ок - запись.
 //  return 1 если все записало
 
+//2
+void	get_coord(t_fdf *fdf)
+{
+	int		**array;
+	int		y;
+	int		x;
+	int		idx;
+
+	array = fdf->array_y_z;
+	fdf->coord = coord_init(fdf);
+	y = -1;
+	idx = -1;
+	while (++y < fdf->count.y)
+	{
+		x = -1;
+		while (++x < fdf->count.x)
+		{
+			fdf->coord->x[++idx] = fdf->start_pos.x + fdf->delta.x * x;
+			fdf->coord->y[idx] = fdf->start_pos.y + fdf->delta.y * y;
+			fdf->coord->z[idx] = array[y][x] * fdf->delta.z;
+			fdf->coord->color[idx] = 0xFFFFFF;
+		}
+	}
+}
+
+//1
 int		get_array(t_fdf *fdf)
 {
 	int		**array;
@@ -28,9 +54,6 @@ int		get_array(t_fdf *fdf)
 	idx = -1;
 	fd = open (fdf->file_name, O_RDONLY);
 	array = (int **)malloc(sizeof(int *) * fdf->count.y);
-	// while (array[++idx])
-	// 	array[idx] = (int *)malloc(sizeof(int) * fdf->count.x);
-
 	while (get_next_line(fd, &line))
 	{
 		splited = ft_strsplit(line, ' ');
