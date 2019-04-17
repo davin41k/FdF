@@ -6,7 +6,7 @@
 #    By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/02/27 18:49:39 by dshereme          #+#    #+#              #
-#    Updated: 2019/03/09 18:25:15 by dshereme         ###   ########.fr        #
+#    Updated: 2019/04/13 20:53:35 by dshereme         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME	:=	fdf
 
 LIB		:= ./libft/libft.a
 
-OBJ_DIR	:=	objs
+OBJ_DIR	:=	./
 
 C_OBJ	:=	mkdir $(OBJ_DIR)
 
@@ -32,10 +32,12 @@ SRC		:=	main.c \
 			initialization.c \
 			draw_func.c \
 			hotkeys.c \
-			rotate_figure.c \
+			hex_to_decimal.c \
+			clean_functions.c \
+			read_figure_two.c \
+			functions.c \
 			$(GNL)/get_next_line.c
 
-			### COLORS ###
 NOC         = \033[0m
 BOLD        = \033[1m
 UNDERLINE   = \033[4m
@@ -56,7 +58,6 @@ $(NAME): $(OBJ)
 	@echo "$(YELLOW)libft was compilid"
 	@echo "$(GREEN)compiling FdF$(CYAN)"
 	@$(CC) $(FLAGS) -o $(NAME) $(SRC) -I fdf.h $(LIB) -L ./minilibx $(MLX_CC)
-	@ mv -f *.o $(OBJ_DIR) 
 	@echo "$(YELLOW)FdF is ready to use"
 
 all: $(NAME)
@@ -65,7 +66,7 @@ clean:
 	@echo "$(VIOLET)cleaning..."
 	@rm -f $(OBJ)
 	@echo "$(RED) project's object files were deleted"
-	@rm -f $(GNL)/*.o
+	@rm -f $(GNL)/get_next_line.o
 	@echo "$(RED) get_next_line.o was deleted"
 	@make clean -C ./libft
 	@echo "$(VIOLET) libft's object files was deleted"
