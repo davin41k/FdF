@@ -6,42 +6,53 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 16:46:02 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/09 17:23:08 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/04/12 17:51:47 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-//  чтение и запись массива в структуру. Если по нормпе ок - запись.
-//  return 1 если все записало
-
-//2
-void	get_coord(t_fdf *fdf)
+void		view_projections(double *x, double *y, int z, int projection)
 {
-	int		**array;
-	int		y;
-	int		x;
-	int		idx;
+	double		previous_x;
+	double		previous_y;
 
-	array = fdf->array_y_z;
-	fdf->coord = coord_init(fdf);
-	y = -1;
-	idx = -1;
-	while (++y < fdf->count.y)
+	previous_x = *x;
+	previous_y = *y;
+	if (!projection)
 	{
-		x = -1;
-		while (++x < fdf->count.x)
-		{
-			fdf->coord->x[++idx] = fdf->start_pos.x + fdf->delta.x * x;
-			fdf->coord->y[idx] = fdf->start_pos.y + fdf->delta.y * y;
-			fdf->coord->z[idx] = array[y][x] * fdf->delta.z;
-			fdf->coord->color[idx] = 0xFFFFFF;
-		}
+		*x = (previous_x - previous_y) * cos(0.523599) + 500;
+		*y = -z + (previous_x + previous_y) * sin(0.523599) - 150;
+	}
+	else
+	{
+		*x = (previous_x - previous_y) * cos(0.523599 * 1.5) + 550;
+		*y = -z + (previous_x + previous_y) * sin(0.523599 * 1.5) - 310;
 	}
 }
 
-//1
-int		get_array(t_fdf *fdf)
+void		up_view(double *x, double *y, int z)
+{
+	double		previous_x;
+	double		previous_y;
+
+	previous_x = *x;
+	previous_y = *y;
+	*x = (previous_x - previous_y) * cos(0.523599 * 1.5) + 500;
+	*y = -z + (previous_x + previous_y) * sin(0.523599 * 1.5) - 150;
+}
+
+void		get_coord(t_fdf *fdf)
+{
+	t_coord		*coord;
+
+	coord = (t_coord *)malloc(sizeof(t_coord));
+	coord->color = (int *)malloc(sizeof(int) * fdf->vert_count);
+	fdf->coord = coord;
+	read_colors(fdf);
+}
+
+int			get_array(t_fdf *fdf)
 {
 	int		**array;
 	int		idx;
@@ -49,47 +60,31 @@ int		get_array(t_fdf *fdf)
 	char	**splited;
 	char	*line;
 
-	if (!norminate(fdf)) // инициализация count.x/y
+	if (!norminate(fdf))
 		return (0);
 	idx = -1;
-	fd = open (fdf->file_name, O_RDONLY);
+	fd = open(fdf->file_name, O_RDONLY);
+	if (fd == -1)
+		ft_putendl("Error: file did not open\n");
 	array = (int **)malloc(sizeof(int *) * fdf->count.y);
 	while (get_next_line(fd, &line))
 	{
 		splited = ft_strsplit(line, ' ');
 		array[++idx] = create_array(splited, fdf->count.x);
+		clean_text(splited);
+		free(line);
 	}
+	free(line);
 	fdf->array_y_z = array;
+	close(fd);
 	return (1);
 }
 
-int		*create_array(char **splitted, int size)
+void		error_exit(int errnum)
 {
-	int		*array;
-	int		idx;
-
-	idx = -1;
-	array = (int *)malloc(sizeof(int) * size);
-	while (*splitted)
-	{
-		array[++idx] = ft_atoi(*splitted);
-		splitted++;
-	}
-	return (array);
+	if (errnum == 1)
+		ft_putendl("File error");
+	else if (errnum == 2)
+		ft_putendl("usage: ./fdf a_file_with_coordinates");
+	exit(0);
 }
-
-// char	**read_str_coord(t_fdf *fdf)
-// {
-// 	char	**str;
-// 	char	*line;
-// 	int		fd; 
-// 	//str = ft_strsplit()
-// 	fd = open(fdf->file_name, O_RDONLY);
-// 	get_next_line(fd, &line);
-// 	fdf->count.x = get_count_x(line);
-// 	get_count_y(INCREASE);
-// 	while (get_next_line(fd, &line))
-// 	{
-// 		//где-то в этом файле читать координаты в массив
-// 	}
-// }

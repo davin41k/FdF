@@ -6,33 +6,32 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:22:20 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/09 17:41:30 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/04/13 16:22:55 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int     main(int ac, char **av)
+int		main(int ac, char **av)
 {
-//   int      fd;
 	t_fdf	*fdf;
-	// int		**arr;
-	// int		i;
-	// int		j;
 
-	// i = j = -1;
-	fdf_init(&fdf, av[1]);
-	if (!get_array(fdf))
+	if (ac == 2)
 	{
-		ft_putendl("error: file with coordinates is not in norme");
-		return (0);
+		fdf_init(&fdf, av[1]);
+		if (!get_array(fdf))
+		{
+			ft_putendl("error: file with coordinates is not in norme");
+			exit(0);
+		}
+		fdf_coord_init(fdf);
+		fdf->projection = 0;
+		ac = 0;
+		sicle_draw(fdf);
+		clean_all_memory(fdf);
+		system("leaks -q fdf");
 	}
-	//show_array(fdf);
-	fdf_coord_init(fdf);
-	get_coord(fdf);
-	show_coord(fdf);
-	ac = 0;
-	sicle_draw(fdf);
-	system("leaks fdf");
+	else
+		error_exit(2);
 	return (0);
 }

@@ -6,26 +6,38 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/08 17:18:07 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/08 18:04:42 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/10 19:37:20 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-void    rotate_right(t_point *p_one, t_point *p_two)
+void		rotate_right(t_fdf *fdf)
 {
-    int     new_x;
-    int     new_y;
+	double		new_x;
+    double		new_y;
 
-    new_x = (p_one->x + p_one->y) * cos(10);
-    new_y = (p_one->x - p_one->y) * sin(10) - p_one->z;
-    p_one->x = new_x;
-    p_one->y = new_y;
-    new_x = (p_two->x + p_two->y) * cos(10);
-    new_y = (p_two->x - p_two->y) * sin(10) - p_two->z;
-    p_two->x = new_x;
-    p_two->y = new_y;
+	new_x = (fdf->delta.x + fdf->delta.y) * cos(0);
+    new_y = (fdf->delta.x - fdf->delta.y) * sin(0);
+	printf("newX:\t%f\tnewY:\t%f\n", new_x, new_y);
+	fdf->delta.x = new_x;
+	fdf->delta.y = new_y;
 }
+
+// void    rotate_right(t_point *p_one, t_point *p_two)
+// {
+//     int     new_x;
+//     int     new_y;
+
+//     new_x = (p_one->x + p_one->y) * cos(10);
+//     new_y = (p_one->x - p_one->y) * sin(10) - p_one->z;
+//     p_one->x = new_x;
+//     p_one->y = new_y;
+//     new_x = (p_two->x + p_two->y) * cos(10);
+//     new_y = (p_two->x - p_two->y) * sin(10) - p_two->z;
+//     p_two->x = new_x;
+//     p_two->y = new_y;
+// }
 
 void	draw_rotate_vert_lineas(t_fdf *fdf)
 {
@@ -46,7 +58,7 @@ void	draw_rotate_vert_lineas(t_fdf *fdf)
 			p_one.y = fdf->start_pos.y + (fdf->delta.y * (j - 1));
 			p_two.x = fdf->start_pos.x + (fdf->delta.x * (i));
 			p_two.y = fdf->start_pos.y + (fdf->delta.y * (j));
-			rotate_right(&p_one, &p_two);
+			//rotate_right(&p_one, &p_two);
 			draw_line(fdf, p_one, p_two);
 		}
 	}

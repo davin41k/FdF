@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 11:50:50 by dshereme          #+#    #+#             */
-/*   Updated: 2019/03/09 17:34:18 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/03/10 18:27:15 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,7 +99,7 @@ void	rotate (int key, t_fdf *fdf);
 
 
 //rotate_figure.c
-void    rotate_right(t_point *p_one, t_point *p_two);
+void	rotate_right(t_fdf *fdf);
 void	draw_rotate_vert_lineas(t_fdf *fdf);
 
 

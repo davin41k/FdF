@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2018/11/14 14:01:28 by dshereme          #+#    #+#             */
-/*   Updated: 2019/02/26 15:06:30 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/04/13 15:47:38 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,10 +66,10 @@ int					get_next_line(const int fd, char **line)
 	char			*newline;
 	void			*tmp;
 
-	if (fd < 0 || !line || BUFF_SIZE < 1)
+	if (fd < 0 || !line || BUFF_SIZE < 1 || read(fd, *line, 0) < 0)
 		return (-1);
 	list = get_list(fd, &head);
-	if (fill_buffer(fd, list) == -1)
+	if (fill_buffer(fd, list) == -1 || list->content == NULL)
 		return (-1);
 	if (!(newline = ft_strchr(list->content, '\n')))
 	{
