@@ -6,7 +6,7 @@
 /*   By: dshereme <dshereme@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/03/05 14:22:20 by dshereme          #+#    #+#             */
-/*   Updated: 2019/04/13 16:22:55 by dshereme         ###   ########.fr       */
+/*   Updated: 2019/04/13 21:09:11 by dshereme         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,6 @@ int		main(int ac, char **av)
 		ac = 0;
 		sicle_draw(fdf);
 		clean_all_memory(fdf);
-		system("leaks -q fdf");
 	}
 	else
 		error_exit(2);
